@@ -187,13 +187,9 @@ function calculateCartDiscount(products, minimumValue, discount) {
 
 // Main Functions
 function printCartTotals(input, products) {
-  // Check for empty products list
-  if (!(products.length > 0)) {
-    const cart = {
-      total_amount: 0,
-      total_after_discount: 0
-    };
-    console.log(toFixedStringify(cart));
+  let cart = {
+    total_amount: 0,
+    total_after_discount: 0
   }
 
   switch (input.discount_type) {
@@ -208,11 +204,10 @@ function printCartTotals(input, products) {
             input.discount_value
           )
         );
-        const cart = {
+        cart = {
           total_amount: beforeCartValue,
           total_after_discount: afterCartValue
         };
-        console.log(toFixedStringify(cart));
       } else if (input.collection) {
         // Collection discount
         const beforeCartValue = findCartValue(products);
@@ -223,13 +218,12 @@ function printCartTotals(input, products) {
             input.discount_value
           )
         );
-        const cart = {
+        cart = {
           total_amount: beforeCartValue,
           total_after_discount: afterCartValue
         };
-        console.log(toFixedStringify(cart));
       } else {
-        console.error("Something is wrong with input");
+        console.log("Missing data from input");
       }
       break;
     case "cart":
@@ -240,13 +234,14 @@ function printCartTotals(input, products) {
         input.cart_value,
         input.discount_value
       );
-      const cart = {
+      cart = {
         total_amount: beforeCartValue,
         total_after_discount: afterCartValue
       };
-      console.log(toFixedStringify(cart));
       break;
     default:
       throw new Error("Invalid input");
   }
+
+  console.log(toFixedStringify(cart));  
 }
